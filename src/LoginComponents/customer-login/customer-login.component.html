@@ -1,0 +1,32 @@
+<div class="bg">
+  <div class="main">
+    <img class="logo" src="https://logoipsum.com/logoipsum.png" alt="logo">
+    <form (submit)="solve()">
+      <label for="username">
+        Telefonnummer:
+      </label>
+      <input type="text"
+             id="username"
+             name="first"
+             placeholder="Indtast dit telefonnummer" required>
+
+      <label for="password">
+        CPR/CVR:
+      </label>
+      <input type="password"
+             id="password"
+             name="password"
+             placeholder="Indtast dit CPR/CVR" required>
+
+
+      <div class="wrap">
+        <button type="submit">Login</button>
+      </div>
+    </form>
+    <p>Er du tekniker?
+      <a routerLink="/technician-login" style="text-decoration: underline;">
+        Gå til tekniker login
+      </a>
+    </p>
+  </div>
+</div>
