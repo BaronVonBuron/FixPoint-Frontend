@@ -8,7 +8,8 @@
       <input type="text"
              id="first"
              name="first"
-             placeholder="Indtast din E-mail" required>
+             placeholder="Indtast din E-mail" required
+             [(ngModel)]="username">>
 
       <label for="password">
         Password:
@@ -16,7 +17,8 @@
       <input type="password"
              id="password"
              name="password"
-             placeholder="Indtast dit password" required>
+             placeholder="Indtast dit password" required
+             [(ngModel)]="password">>
 
       <div class="wrap">
         <button type="submit">Login</button>
