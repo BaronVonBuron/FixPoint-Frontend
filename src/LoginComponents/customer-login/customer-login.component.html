@@ -7,8 +7,9 @@
       </label>
       <input type="text"
              id="username"
-             name="first"
-             placeholder="Indtast dit telefonnummer" required>
+             name="username"
+             placeholder="Indtast dit telefonnummer" required
+              [(ngModel)]="username">
 
       <label for="password">
         CPR/CVR:
@@ -16,7 +17,8 @@
       <input type="password"
              id="password"
              name="password"
-             placeholder="Indtast dit CPR/CVR" required>
+             placeholder="Indtast dit CPR/CVR" required
+             [(ngModel)]="password">
 
 
       <div class="wrap">
