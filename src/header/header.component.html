@@ -1,0 +1,14 @@
+<div class="Header">
+  <button (click)="toggleDropdown()" >
+    <img src="https://img.icons8.com/m_rounded/512/FFFFFF/appointment-reminders.png">
+    <span class="badge">7</span>
+  </button>
+  <div *ngIf="isDropdownVisible" class="dropdown">
+    <ul>
+      <li *ngFor="let notification of notifications">{{ notification }}</li>
+    </ul>
+  </div>
+  <button>
+    <img src="https://images.freeimages.com/vme/images/2/9/295767/white_clarity_shutdown_icon_preview">
+  </button>
+</div>

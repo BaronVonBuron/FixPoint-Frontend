@@ -25,7 +25,7 @@ export class TechnicianLoginComponent {
     this.apiService.login('login', { username: this.username, password: this.password }).subscribe({
       next: (response: { token: any; }) => {
         this.apiService.setToken(response.token); // Save the token
-        this.router.navigate(['/customer-dashboard']); // Redirect to the dashboard
+        this.router.navigate(['/technician-dashboard']); // Redirect to the dashboard
       },
       error: () => {
         alert('Invalid credentials');

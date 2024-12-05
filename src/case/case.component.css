@@ -1,0 +1,75 @@
+.main {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  padding: 10px 20px;
+  transition: transform 0.2s;
+  width: 100%;
+  height: 10%;
+  text-align: center;
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.5fr;
+  border: none;
+  position: relative;
+}
+
+.main:hover {
+  transform: scale(1.05);
+  background-color: #eeeeee;
+}
+
+.progress-circle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+}
+
+.progress-circle {
+  transform: scale(1);
+}
+
+.circle-bg {
+  stroke-width: 2.5;
+}
+
+.circle-progress {
+  stroke-width: 2.5;
+  transition: stroke-dasharray 0.3s ease-in-out;
+}
+
+.caseItem{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-size: 25px;
+}
+
+#caseNumber{
+  grid-column: 1/2;
+}
+
+#type{
+  grid-column: 2/3;
+}
+
+#phone{
+  grid-column: 3/4;
+}
+
+#date{
+  grid-column: 4/5;
+}
+
+#priority{
+  grid-column: 5/6;
+}
+
+#status{
+  grid-column: 6/7;
+}

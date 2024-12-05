@@ -1,0 +1,41 @@
+app-message:nth-child(odd){
+  background-color: #0066AE !important;
+  color: white;
+  display: flex;
+  justify-content: center;
+  width: 78%;
+  border-radius: 15px;
+  padding: 10px;
+  margin-bottom: 30px;
+  align-items: end;
+  margin-right: 0;
+  margin-left: 100px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+app-message:nth-child(even){
+  background-color: white !important;
+  color: #0066AE;
+  display: flex;
+  justify-content: center;
+  width: 78%;
+  border-radius: 15px;
+  padding: 10px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+app-message:nth-child{
+
+}
+
+div{
+  width: 92%;
+  height: 80%;
+  overflow: auto;
+  font-size: 25px;
+  margin-bottom: 30px;
+  background-color: #eeeeee;
+  border-radius: 15px;
+  padding: 20px;
+}

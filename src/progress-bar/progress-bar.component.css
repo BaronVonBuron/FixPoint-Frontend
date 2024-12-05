@@ -1,0 +1,25 @@
+progress{
+  width: 80%;
+  height: 15%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+div{
+  width: 100%;
+}
+
+svg{
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+p{
+  font-size: 25px;
+  text-align: center;
+  font-style: italic;
+  margin-top: 40px;
+}

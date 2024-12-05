@@ -1,0 +1,16 @@
+label{
+  font-size: 25px;
+  margin-left: 10px;
+}
+
+input{
+  width: 25px;
+  height: 25px;
+}
+
+div {
+  display: flex;
+  height: 100%;
+  margin: auto;
+  align-items: center;
+}
