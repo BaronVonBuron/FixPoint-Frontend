@@ -1,7 +1,3 @@
-<app-case></app-case>
-<app-case></app-case>
-<app-case></app-case>
-<app-case></app-case>
-<app-case></app-case>
-<app-case></app-case>
-<app-case></app-case>
+<div *ngFor="let caseItem of cases">
+  <app-case [caseData]="caseItem"></app-case>
+</div>

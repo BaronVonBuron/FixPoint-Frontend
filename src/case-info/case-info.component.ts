@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {CaseService} from '../Services/case.service';
+import {CaseModel} from '../Models/case-model';
 
 @Component({
   selector: 'app-case-info',

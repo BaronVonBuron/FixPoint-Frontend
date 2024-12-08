@@ -1,19 +1,19 @@
-<button class="main" (click)=openCase(caseID)>
+<button class="main" (click)=openCase(caseData.caseID)>
 
   <div class="caseItem" id="caseNumber">
-    <p>{{caseID}}</p>
+    <p>{{caseData.caseID}}</p>
   </div>
   <div class="caseItem" id="type">
-    <p>{{type}}</p>
+    <p>{{caseData.type}}</p>
   </div>
   <div class="caseItem" id="phone">
-    <p> {{phoneNumber}}</p>
+    <p> {{caseData.customerFK}}</p>
   </div>
   <div class="caseItem" id="date">
-    <p>{{date}}</p>
+    <p>{{caseData.createdDate}}</p>
   </div>
   <div class="caseItem" id="priority">
-    <p>{{priority}}</p>
+    <p>{{caseData.priority}}</p>
   </div>
   <div class="caseItem" id="status">
     <svg class="progress-circle" width="100" height="100" viewBox="0 0 36 36">
@@ -35,7 +35,7 @@
         stroke="#0078D7"
         stroke-width="2"
         stroke-dasharray="100, 100"
-        [style.stroke-dashoffset]="100 - status"
+        [style.stroke-dashoffset]="100 - caseData.status*25"
         stroke-linecap="round"
         transform="rotate(-90 18 18)"
       ></circle>
@@ -47,7 +47,7 @@
         font-size="8"
         fill="#0078D7"
       >
-        {{status}}%
+        {{caseData.status*25}}%
       </text>
     </svg>
   </div>

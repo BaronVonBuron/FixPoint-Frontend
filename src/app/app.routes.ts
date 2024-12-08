@@ -7,6 +7,9 @@ import {TechnicianDashboardComponent} from '../Dashboard/MainDash/technician-das
 import {
   TechnicianCaseDashboardComponent
 } from '../Dashboard/CaseDash/technician-case-dashboard/technician-case-dashboard.component';
+import {
+  CustomerCaseDashboardComponent
+} from '../Dashboard/CaseDash/customer-case-dashboard/customer-case-dashboard.component';
 
 
 export const routes: Routes = [
@@ -15,6 +18,7 @@ export const routes: Routes = [
   { path: 'customer-dashboard', component: CustomerDashboardComponent },
   { path: 'technician-dashboard', component: TechnicianDashboardComponent },
   { path: 'technician-case-dashboard', component: TechnicianCaseDashboardComponent },
+  { path: 'customer-case-dashboard', component: CustomerCaseDashboardComponent },
   { path: '', redirectTo: '/customer-login', pathMatch: 'full' }, // Default route
 ];
 

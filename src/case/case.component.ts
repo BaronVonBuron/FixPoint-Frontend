@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Router} from '@angular/router';
+import {CaseModel} from '../Models/case-model';
+import {parseJwt} from '../TokenParsing/jwtParser';
 
 
 @Component({
@@ -13,15 +15,23 @@ import {Router} from '@angular/router';
 })
 export class CaseComponent {
 
+  @Input() caseData!: CaseModel;
   constructor(private router: Router) { }
-  date: string = '32-13-2025'; //erstat med dato fra databasen
-  phoneNumber: string = '12345678'; //erstat med telefonnummer fra databasen
-  type: string = 'Type'; //erstat med type fra databasen
-  caseID: string = '123456123123123123132'; //erstat med caseID fra databasen
-  priority: string = 'Høj'; //erstat med prioritet fra databasen
-  status: number = 50; //erstat med status fra databasen
+
 
   openCase(caseID: string) {
-    this.router.navigate(['technician-case-dashboard']);
+    const token = localStorage.getItem('jwtToken');
+    if (token) {
+      const decodedToken = parseJwt(token);
+      const role = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+      if (role === 'Technician') {
+        this.router.navigate(['technician-case-dashboard']);
+      } else {
+        this.router.navigate(['customer-case-dashboard']);
+      }
+    } else {
+      console.error('No JWT token found in localStorage');
+      // Handle the absence of a token appropriately, e.g., redirect to a login page
+    }
   }
 }
