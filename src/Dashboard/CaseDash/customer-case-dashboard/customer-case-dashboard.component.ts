@@ -4,6 +4,8 @@ import {ProgressBarComponent} from '../../../progress-bar/progress-bar.component
 import {HeaderComponent} from '../../../header/header.component';
 import {ContactComponent} from '../../../contact/contact.component';
 import {CaseNotesComponent} from '../../../case-notes/case-notes.component';
+import {CaseModel} from '../../../Models/case-model';
+import {SelectedCaseService} from '../../../Services/selected.case.service';
 
 
 @Component({
@@ -14,5 +16,11 @@ import {CaseNotesComponent} from '../../../case-notes/case-notes.component';
   styleUrl: './customer-case-dashboard.component.css'
 })
 export class CustomerCaseDashboardComponent {
+  public selectedCase: CaseModel | null = null;
+  constructor(private selectedCaseService: SelectedCaseService) {
 
+  }
+  ngOnInit() {
+    this.selectedCase = this.selectedCaseService.getCase();
+  }
 }
