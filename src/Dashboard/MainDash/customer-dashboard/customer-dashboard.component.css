@@ -1,0 +1,59 @@
+/*.bg {
+  background-image: url('./dashbg.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+}*/
+
+.main{
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 0.5fr;
+  grid-template-rows: 1fr 1fr 9fr;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#grid1{
+  grid-column: 1 / 4;
+  grid-row: 1 / 2;
+  text-align: center;
+  font-size: 60px;
+}
+
+#grid5{
+  grid-column: 1 / 4;
+  grid-row: 2 / 3;
+  text-align: center;
+}
+
+#grid6{
+  grid-column: 1 / 4;
+  grid-row: 3 / 4;
+  text-align: center;
+}
+
+
+.headings{
+  background-color: #0066AE;
+  color: white;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  padding: 10px 20px;
+  transition: transform 0.2s;
+  width: 98%;
+  height: 40%;
+  text-align: center;
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.5fr;
+  border: none;
+  position: relative;
+  font-weight: bold;
+  font-size: 25px;
+}
