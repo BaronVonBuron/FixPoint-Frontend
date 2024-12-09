@@ -1,5 +1,5 @@
 export interface CaseModel {
-    caseID: string,
+    ID: string,
     technicianFK: string,
     customerFK: string,
     type: string,
