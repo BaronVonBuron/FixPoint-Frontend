@@ -34,4 +34,24 @@ export class SelectedCustomerService {
       })
     );
   }
+
+  getCustomerByIdWithParam(customerId: string): Observable<CustomerModel> {
+    if (!customerId) {
+      throw new Error('No customer ID provided');
+    }
+    const url = `${this.apiBaseUrl}/GetCustomerById?id=${customerId}`;
+
+    return this.http.get<CustomerModel>(url).pipe(
+      map(response => ({
+        id: response.id,
+        email: response.email,
+        name: response.name,
+        phonenumber: response.phonenumber,
+        cprcvr: response.cprcvr
+      })),
+      catchError(error => {
+        throw new Error('Failed to fetch customer data: ' + error.message);
+      })
+    );
+  }
 }

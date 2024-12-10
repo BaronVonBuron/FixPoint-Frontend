@@ -3,7 +3,7 @@
   <div class="GridDiv">
     <div id="Grid1">
       <label>Vælg udstyrstype:</label>
-      <select id="Udstyrstype" name="udstyrstype">
+      <select id="Udstyrstype" [(ngModel)]="caseData.type">
         <option value="PC">PC</option>
         <option value="Mobil">Mobil</option>
         <option value="Ipad/tablet">Ipad/Tablet</option>
@@ -13,28 +13,26 @@
 
     <div id="Grid2">
       <label>Vælg tekniker:</label>
-      <select id="Tekniker" name="Tekniker">
-        <option value="Jens">Jens Petersen</option>
-        <option value="Jasmin">Jasmin Sørensen</option>
-        <option value="Mikkel">Mikkel Jensen</option>
+      <select id="Tekniker" [(ngModel)]="caseData.technicianFK">
+        <option *ngFor="let tech of technicians" [value]="tech.id">{{ tech.name }}</option>
       </select>
     </div>
 
     <div id="Grid3">
       <label>Vælg prioritet:</label>
-      <select id="Prioritet" name="Prioritet">
-        <option value="Lav">Lav</option>
-        <option value="Mellem">Mellem</option>
-        <option value="Høj">Høj</option>
+      <select id="Prioritet" [(ngModel)]="caseData.priority">
+        <option value="0">Lav</option>
+        <option value="1">Mellem</option>
+        <option value="2">Høj</option>
       </select>
     </div>
 
     <div id="Grid4">
       <label>Vælg forventet afleveringsdato</label>
-      <input type="date">
+      <input type="date" [(ngModel)]="caseData.expectedDoneDate">
     </div>
   </div>
 
   <label>Beskrivelse af opgaven:</label>
-  <textarea class="description"></textarea>
+  <textarea class="description" [(ngModel)]="caseData.description"></textarea>
 </div>

@@ -3,6 +3,8 @@ import {Router} from '@angular/router';
 import {CaseModel} from '../Models/case-model';
 import {parseJwt} from '../TokenParsing/jwtParser';
 import {SelectedCaseService} from '../Services/selected.case.service';
+import {StatusPercentService} from '../Services/tools/status.percent.service';
+import {SelectedCustomerService} from '../Services/selected.customer.service';
 
 
 @Component({
@@ -17,8 +19,18 @@ import {SelectedCaseService} from '../Services/selected.case.service';
 export class CaseComponent {
 
   @Input() caseData!: CaseModel;
-  constructor(private router: Router, private selectedCaseService: SelectedCaseService) { }
+  constructor(private router: Router,
+              private selectedCaseService: SelectedCaseService,
+              private statusPercentService: StatusPercentService,
+              private selectedCustomerService: SelectedCustomerService) { }
 
+  customerPhone: string = '';
+
+  ngOnInit() {
+    this.selectedCustomerService.getCustomerByIdWithParam(this.caseData.customerFK).subscribe(customer => {
+      this.customerPhone = customer.phonenumber;
+    });
+  }
 
   openCase(casee: CaseModel) {
     this.selectedCaseService.setCase(casee);
