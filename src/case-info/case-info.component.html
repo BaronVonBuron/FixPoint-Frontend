@@ -1,15 +1,15 @@
 <div>
   <h3>Kundeoplysninger</h3>
-  <p>Navn: Peter Hansen</p>
-  <p>Email: Peter1234..gmail.com</p>
-  <p>Telefon: 12345678</p>
-  <p>CPR/CVR: 1205651234</p>
+  <p>Navn: {{selectedCustomer?.name}}</p>
+  <p>Email: {{selectedCustomer?.email}}</p>
+  <p>Telefon: {{selectedCustomer?.phonenumber}}</p>
+  <p>CPR/CVR: {{selectedCustomer?.cprcvr}}</p>
   <br>
   <h3>Sagsoplysninger</h3>
-  <p>Udstyrstype: PC</p>
-  <p>Tekniker: Per Jensen</p>
-  <p>Prioritet: Høj</p>
-  <p>Oprettelsesdato: 15/11/2024</p>
-  <p>Afleveringsdato: 2/12/2024</p>
-  <p>Problembeskrivelse: Skærm i stykker og kan ikke lade op</p>
+  <p>Udstyrstype: {{selectedCase?.type}}</p>
+  <p>Tekniker: {{selectedTechnician?.name}}</p>
+  <p>Prioritet: {{selectedCase?.priority}}</p>
+  <p>Oprettelsesdato: {{selectedCase?.createdDate}}</p>
+  <p>Afleveringsdato: {{selectedCase?.expectedDoneDate}}</p>
+  <p>Problembeskrivelse: {{selectedCase?.description}}</p>
 </div>

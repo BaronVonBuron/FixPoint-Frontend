@@ -2,6 +2,9 @@ import {Component, Input} from '@angular/core';
 import {Router} from '@angular/router';
 import {CaseModel} from '../Models/case-model';
 import {parseJwt} from '../TokenParsing/jwtParser';
+import {SelectedCaseService} from '../Services/selected.case.service';
+import {StatusPercentService} from '../Services/tools/status.percent.service';
+import {SelectedCustomerService} from '../Services/selected.customer.service';
 
 
 @Component({
@@ -16,10 +19,21 @@ import {parseJwt} from '../TokenParsing/jwtParser';
 export class CaseComponent {
 
   @Input() caseData!: CaseModel;
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private selectedCaseService: SelectedCaseService,
+              private statusPercentService: StatusPercentService,
+              private selectedCustomerService: SelectedCustomerService) { }
 
+  customerPhone: string = '';
 
-  openCase(caseID: string) {
+  ngOnInit() {
+    this.selectedCustomerService.getCustomerByIdWithParam(this.caseData.customerFK).subscribe(customer => {
+      this.customerPhone = customer.phonenumber;
+    });
+  }
+
+  openCase(casee: CaseModel) {
+    this.selectedCaseService.setCase(casee);
     const token = localStorage.getItem('jwtToken');
     if (token) {
       const decodedToken = parseJwt(token);

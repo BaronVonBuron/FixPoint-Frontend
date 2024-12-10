@@ -1,3 +1,7 @@
 <div>
-  <button>Opret ny sag +</button>
+  <button mat-button [matMenuTriggerFor]="menu">Opret ny +</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="onOption1()">Opret ny sag</button>
+    <button mat-menu-item (click)="onOption2()">Opret ny tekniker</button>
+  </mat-menu>
 </div>

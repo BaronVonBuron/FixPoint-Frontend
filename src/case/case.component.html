@@ -1,13 +1,13 @@
-<button class="main" (click)=openCase(caseData.ID)>
+<button class="main" (click)=openCase(caseData)>
 
   <div class="caseItem" id="caseNumber">
-    <p>{{caseData.ID}}</p>
+    <p>{{caseData.id}}</p>
   </div>
   <div class="caseItem" id="type">
     <p>{{caseData.type}}</p>
   </div>
   <div class="caseItem" id="phone">
-    <p> {{caseData.customerFK}}</p>
+    <p> {{customerPhone}}</p>
   </div>
   <div class="caseItem" id="date">
     <p>{{caseData.createdDate}}</p>

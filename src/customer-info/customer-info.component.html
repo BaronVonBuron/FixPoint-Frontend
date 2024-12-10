@@ -1,11 +1,11 @@
 <div>
   <h3>Kundeoplysninger:</h3>
   <label>Navn:</label>
-  <input type="text" placeholder="Navn">
+  <input type="text" placeholder="Navn" [(ngModel)]="customer.name">
   <label>Email:</label>
-  <input type="text" placeholder="E-mail">
+  <input type="text" placeholder="E-mail" [(ngModel)]="customer.email">
   <label>Telefon nr:</label>
-  <input type="text" placeholder="Tlf. nr.">
+  <input type="text" placeholder="Tlf. nr." [(ngModel)]="customer.phonenumber">
   <label>CPR/CVR:</label>
-  <input type="text" placeholder="CPR/CVR">
+  <input type="text" placeholder="CPR/CVR" [(ngModel)]="customer.cprcvr">
 </div>

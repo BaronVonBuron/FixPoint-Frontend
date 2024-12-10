@@ -47,11 +47,11 @@ button:hover {
   column-gap: 20px;
 }
 
-#2grid1{
+#twogrid1{
   grid-column: 1/2;
 }
 
-#2grid2{
+#twogrid2{
   grid-column: 2/3;
 }
 
