@@ -1,0 +1,42 @@
+<div class="bg">
+  <div class="main">
+    <h1>Opret ny tekniker</h1>
+    <form (submit)="solve()">
+      <label for="name">
+        Navn:
+      </label>
+      <input type="text"
+             id="name"
+             name="name"
+             placeholder="Indtast dit navn" required>
+
+      <label for="email">
+        Email:
+      </label>
+      <input type="text"
+             id="email"
+             name="email"
+             placeholder="Indtast din email" required>
+
+      <label for="password">
+        Password:
+      </label>
+      <input type="password"
+             id="password"
+             name="password"
+             placeholder="Indtast password" required>
+
+      <label for="gentagPassword">
+        Password:
+      </label>
+      <input type="password"
+             id="gentagPassword"
+             name="password"
+             placeholder="Gentag password" required>
+
+      <div class="wrap">
+        <button type="submit">Opret</button>
+      </div>
+    </form>
+  </div>
+</div>
