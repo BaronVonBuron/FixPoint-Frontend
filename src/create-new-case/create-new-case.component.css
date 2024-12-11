@@ -1,4 +1,4 @@
-button {
+button, button[mat-button] {
   padding: 23px;
   border-radius: 10px;
   border: none;
@@ -6,12 +6,13 @@ button {
   cursor: pointer;
   background-color: #0066AE;
   width: 80%;
+  height: 53%;
   font-size: 25px;
+  margin: 5px;
 }
 
 button:hover {
-  background-color: #034C8C;
-  transform: scale(1.05);
+  background-color: #00508f;
 }
 
 div{

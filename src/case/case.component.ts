@@ -5,6 +5,7 @@ import {parseJwt} from '../TokenParsing/jwtParser';
 import {SelectedCaseService} from '../Services/selected.case.service';
 import {StatusPercentService} from '../Services/tools/status.percent.service';
 import {SelectedCustomerService} from '../Services/selected.customer.service';
+import {PriorityNamerService} from '../Services/tools/priority.namer.service';
 
 
 @Component({
@@ -21,15 +22,16 @@ export class CaseComponent {
   @Input() caseData!: CaseModel;
   constructor(private router: Router,
               private selectedCaseService: SelectedCaseService,
-              private statusPercentService: StatusPercentService,
+              private priorityNamerService: PriorityNamerService,
               private selectedCustomerService: SelectedCustomerService) { }
 
   customerPhone: string = '';
-
+  priority: string = '';
   ngOnInit() {
     this.selectedCustomerService.getCustomerByIdWithParam(this.caseData.customerFK).subscribe(customer => {
       this.customerPhone = customer.phonenumber;
     });
+    this.priority = this.priorityNamerService.getPriorityName(this.caseData.priority);
   }
 
   openCase(casee: CaseModel) {
