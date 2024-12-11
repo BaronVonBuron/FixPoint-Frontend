@@ -26,6 +26,6 @@ export class CreateNewCaseComponent {
   // Method called when "Opret ny tekniker" is clicked
   onOption2() {
     console.log('Opret ny tekniker clicked');
-    // Implement your business logic here
+    this.router.navigate(['/create-technician']);
   }
 }
