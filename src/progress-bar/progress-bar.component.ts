@@ -16,8 +16,40 @@ export class ProgressBarComponent {
               private priorityNamerService: PriorityNamerService) {}
 
   public statusText: string = "";
+  public arbejder: string = "#eee";
+  public reservedele: string = "#eee";
+  public klar: string = "#eee";
+  public statusPercent?: number = 0;
 
   ngOnInit(): void {
     this.statusText = this.statusPercentService.getStatusMessage(this.selectedCaseService.getCase()?.status ?? 0);
+    this.statusPercent = this.statusPercentService.multiplyStatusBy25(this.selectedCaseService.getCase()?.status ?? 0);
+    this.updateStatusColors(this.selectedCaseService.getCase()?.status ?? 0);
+  }
+
+  public updateStatusColors(status: number): void {
+    const activeColor = "#034c8c";
+    const defaultColor = "#eee";
+
+    // Reset all fields to default color
+    this.arbejder = defaultColor;
+    this.reservedele = defaultColor;
+    this.klar = defaultColor;
+
+    // Set colors based on the status
+    switch (status) {
+      case 2:
+        this.arbejder = activeColor;
+        break;
+      case 3:
+        this.arbejder = activeColor;
+        this.reservedele = activeColor;
+        break;
+      case 4:
+        this.arbejder = activeColor;
+        this.reservedele = activeColor;
+        this.klar = activeColor;
+        break;
+    }
   }
 }
