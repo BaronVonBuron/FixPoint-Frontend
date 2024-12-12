@@ -10,6 +10,12 @@ body {
 
 }
 
+.error {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 0.2em;
+}
+
 .bg{
   background-image: url("./Background.jpg");
   background-size: cover;

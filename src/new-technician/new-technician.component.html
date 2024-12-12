@@ -1,41 +1,88 @@
 <div class="bg">
   <div class="main">
     <h1>Opret ny tekniker</h1>
-    <form (submit)="solve()">
-      <label for="name">
-        Navn:
-      </label>
-      <input type="text"
-             id="name"
-             name="name"
-             placeholder="Indtast dit navn" required>
+    <form (ngSubmit)="solve()" #technicianForm="ngForm">
 
-      <label for="email">
-        Email:
-      </label>
-      <input type="text"
-             id="email"
-             name="email"
-             placeholder="Indtast din email" required>
+      <!-- Name Input -->
+      <label for="name">Navn:</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        placeholder="Indtast dit navn"
+        [(ngModel)]="name"
+        #nameInput="ngModel"
+        required
+      />
+      <!-- Error message for required name -->
+      <div *ngIf="nameInput.invalid && nameInput.touched" class="error">
+        * Navn er påkrævet (Name is required).
+      </div>
 
-      <label for="password">
-        Password:
-      </label>
-      <input type="password"
-             id="password"
-             name="password"
-             placeholder="Indtast password" required>
+      <!-- Email Input -->
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Indtast din email"
+        [(ngModel)]="email"
+        #emailInput="ngModel"
+        required
+        email
+      />
+      <!-- Error messages for email -->
+      <div *ngIf="emailInput.invalid && emailInput.touched" class="error">
+        <div *ngIf="emailInput.errors?.required">* Email er påkrævet (Email is required).</div>
+        <div *ngIf="emailInput.errors?.email">* Indtast en gyldig email (Enter a valid email).</div>
+      </div>
 
-      <label for="gentagPassword">
-        Password:
-      </label>
-      <input type="password"
-             id="gentagPassword"
-             name="password"
-             placeholder="Gentag password" required>
+      <!-- Password Input -->
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Indtast password"
+        [(ngModel)]="password"
+        #passwordInput="ngModel"
+        required
+        minlength="6"
+      />
+      <!-- Error messages for password -->
+      <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error">
+        <div *ngIf="passwordInput.errors?.required">* Password er påkrævet (Password is required).</div>
+        <div *ngIf="passwordInput.errors?.minlength">
+          * Passwordet skal være mindst 6 tegn langt (Password must be at least 6 characters long).
+        </div>
+      </div>
 
+      <!-- Repeat Password Input -->
+      <label for="gentagPassword">Gentag Password:</label>
+      <input
+        type="password"
+        id="gentagPassword"
+        name="repeatPassword"
+        placeholder="Gentag password"
+        [(ngModel)]="repeatPassword"
+        #repeatPasswordInput="ngModel"
+        required
+      />
+      <!-- Error message for repeat password -->
+      <div *ngIf="repeatPasswordInput.invalid && repeatPasswordInput.touched" class="error">
+        * Gentag password er påkrævet (Repeat password is required).
+      </div>
+
+      <!-- Password Mismatch Error -->
+      <div *ngIf="password !== repeatPassword && repeatPasswordInput.touched" class="error">
+        * Passwordene stemmer ikke overens (Passwords do not match).
+      </div>
+
+      <!-- Submit Button -->
       <div class="wrap">
-        <button type="submit">Opret</button>
+        <button type="submit" [disabled]="technicianForm.invalid">
+          Opret
+        </button>
       </div>
     </form>
   </div>
