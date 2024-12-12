@@ -1,14 +1,24 @@
-.Header{
+.Header {
   background-color: #034C8C;
   color: white;
   height: 100px;
   width: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: space-between; /* Space between items */
+  align-items: center; /* Center items vertically */
 }
 
+.logo {
+  height: 80px;
+  width: 317.53px; /* Set the width to maintain the aspect ratio */
+  background-image: url("./Logojpeg.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: 10px; /* Add some margin to the left if needed */
+}
 
-img{
+img {
   height: 80px;
   width: 80px;
   display: flex;
@@ -17,14 +27,14 @@ img{
   align-items: end;
 }
 
-button{
+button {
   position: relative;
   background-color: transparent;
   border: none;
   margin-right: 10px;
 }
 
-button:hover{
+button:hover {
   transform: scale(1.12);
 }
 
@@ -60,7 +70,7 @@ button:hover{
   background-color: #eee;
 }
 
-span{
+span {
   position: absolute;
   top: 8px;
   right: 5px;

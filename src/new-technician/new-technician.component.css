@@ -75,8 +75,12 @@ button {
   color: white;
   cursor: pointer;
   background-color: #0066AE;
-  width: 50%;
+  width: 43%;
   font-size: 25px;
+}
+
+.cancel{
+  margin-left: 4%;
 }
 
 button:hover {

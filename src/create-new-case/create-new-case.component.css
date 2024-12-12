@@ -1,18 +1,34 @@
-button, button[mat-button] {
+button[mat-button] {
   padding: 23px;
   border-radius: 10px;
   border: none;
   color: white;
   cursor: pointer;
   background-color: #0066AE;
-  width: 80%;
+  width: 75%;
   height: 53%;
   font-size: 25px;
   margin: 5px;
 }
 
-button:hover {
+button[mat-button]:hover {
   background-color: #00508f;
+}
+
+button{
+  font-size: 25px;
+  width: 100%;
+  padding: 30px;
+  background-color: #ffffff;
+  margin: 0;
+  border-top:1px solid gray;
+  border-bottom:none;
+  border-left:none;
+  border-right:none;
+}
+
+button:hover{
+  background-color: #f2f2f2;
 }
 
 div{
@@ -22,3 +38,13 @@ div{
   display: flex;
   justify-content: right;
 }
+
+
+::ng-deep .mat-mdc-menu-content {
+  padding: 0 !important;
+}
+
+::ng-deep .custom-menu .mat-mdc-menu-content {
+  width: 100% !important; /* Set the width to match the button */
+}
+
