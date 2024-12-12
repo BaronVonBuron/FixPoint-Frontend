@@ -9,6 +9,7 @@ import {DetailsEditComponent} from '../details-edit/details-edit.component';
 import {HeaderComponent} from '../header/header.component';
 import {CustomerModel} from '../Models/customer-model';
 import {SelectedCustomerService} from '../Services/selected.customer.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-edit-case',
@@ -30,7 +31,8 @@ export class EditCaseComponent implements OnInit {
   constructor(
     private selectedCaseService: SelectedCaseService,
     private getTechniciansService: GetTechniciansService,
-    private selectedCustomerService: SelectedCustomerService // For fetching customer
+    private selectedCustomerService: SelectedCustomerService, // For fetching customer
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -62,6 +64,13 @@ export class EditCaseComponent implements OnInit {
           console.error('Error fetching technicians:', err.message);
         },
       });
+    }
+  }
+
+  cancel() {
+    const confirmCancel = window.confirm('Er du sikker på, at du vil annullere og gå tilbage til dashboardet?');
+    if (confirmCancel) {
+      this.router.navigate(['/technician-dashboard']); // Navigate to the dashboard
     }
   }
 }

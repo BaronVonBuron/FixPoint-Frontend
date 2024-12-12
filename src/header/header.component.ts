@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import {Router} from '@angular/router';
+import {parseJwt} from '../TokenParsing/jwtParser';
 
 @Component({
   selector: 'app-header',
@@ -34,5 +35,23 @@ export class HeaderComponent {
       // Redirect to the login page
       this.router.navigate(['/customer-login']);
     }
+  }
+
+  backToDashboard() {
+      const token = localStorage.getItem('jwtToken'); // Retrieve token from localStorage
+      if (token) {
+        const decodedToken = parseJwt(token); // Decode the JWT payload
+        const role = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']; // JWT role claim
+
+        if (role === 'Customer') {
+          this.router.navigate(['customer-dashboard']);
+        } else if (role === 'Technician') {
+          this.router.navigate(['technician-dashboard']);
+        } else {
+          console.error('Unknown user role. Unable to load cases.');
+        }
+      } else {
+        console.error('No JWT token found. Unable to load cases.');
+      }
   }
 }

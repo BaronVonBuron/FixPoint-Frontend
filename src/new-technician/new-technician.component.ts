@@ -44,4 +44,11 @@ export class NewTechnicianComponent {
         }
       );
   }
+
+  cancel() {
+    const confirmCancel = window.confirm('Er du sikker på, at du vil annullere og gå tilbage til dashboardet?');
+    if (confirmCancel) {
+      this.router.navigate(['/technician-dashboard']); // Navigate to the dashboard
+    }
+  }
 }
