@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import {HeaderComponent} from '../../../header/header.component';
 import {CaseInfoComponent} from '../../../case-info/case-info.component';
@@ -18,10 +19,14 @@ import {CaseModel} from '../../../Models/case-model';
 })
 export class TechnicianCaseDashboardComponent {
   public selectedCase: CaseModel | null = null;
-  constructor(private selectedCaseService: SelectedCaseService) {
+  constructor(private selectedCaseService: SelectedCaseService, private router: Router) {
 
   }
   ngOnInit() {
     this.selectedCase = this.selectedCaseService.getCase();
+  }
+
+  onEdit(){
+    this.router.navigate(['/edit-case']);
   }
 }

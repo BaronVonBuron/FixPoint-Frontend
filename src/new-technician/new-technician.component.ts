@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {TechnicianService} from '../Services/technician-services/technician.service';
 import {FormsModule} from '@angular/forms';
+import {NgIf} from '@angular/common';
 
 
 @Component({
   selector: 'app-new-technician',
   imports: [
-    FormsModule
+    FormsModule,
+    NgIf
   ],
   templateUrl: './new-technician.component.html',
   styleUrl: './new-technician.component.css',

@@ -2,11 +2,24 @@
   <app-header></app-header>
   <div class="main">
     <h1 id="grid1">Opret ny sag</h1>
-    <app-customer-info id="grid2" [customer]="customer"> </app-customer-info>
-    <app-details-new id="grid3" [caseData]="caseData"></app-details-new>
+
+    <!-- Customer Information -->
+    <app-customer-info
+      id="grid2"
+      #customerInfo
+      [customer]="customer"
+    ></app-customer-info>
+
+    <!-- Case Details -->
+    <app-details-new
+      id="grid3"
+      #detailsNew
+      [caseData]="caseData"
+    ></app-details-new>
+
     <div id="grid4">
       <button id="twogrid1" (click)="onSubmit()">Opret sag</button>
-      <button id="twogrid2">Annuller</button>
+      <button id="twogrid2" (click)="onCancel()">Annuller</button>
     </div>
   </div>
 </div>

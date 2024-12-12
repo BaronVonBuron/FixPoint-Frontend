@@ -33,8 +33,8 @@
       />
       <!-- Error messages for email -->
       <div *ngIf="emailInput.invalid && emailInput.touched" class="error">
-        <div *ngIf="emailInput.errors?.required">* Email er påkrævet (Email is required).</div>
-        <div *ngIf="emailInput.errors?.email">* Indtast en gyldig email (Enter a valid email).</div>
+        <div *ngIf="emailInput.errors?.['required']">* Email er påkrævet (Email is required).</div>
+        <div *ngIf="emailInput.errors?.['email']">* Indtast en gyldig email (Enter a valid email).</div>
       </div>
 
       <!-- Password Input -->
@@ -51,8 +51,8 @@
       />
       <!-- Error messages for password -->
       <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error">
-        <div *ngIf="passwordInput.errors?.required">* Password er påkrævet (Password is required).</div>
-        <div *ngIf="passwordInput.errors?.minlength">
+        <div *ngIf="passwordInput.errors?.['required']">* Password er påkrævet (Password is required).</div>
+        <div *ngIf="passwordInput.errors?.['minlength']">
           * Passwordet skal være mindst 6 tegn langt (Password must be at least 6 characters long).
         </div>
       </div>

@@ -1,5 +1,6 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {CustomerModel} from '../Models/customer-model';
 
 @Component({
   selector: 'app-customer-info',
@@ -9,5 +10,6 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './customer-info.component.css'
 })
 export class CustomerInfoComponent {
-  @Input() customer!: any;
+  @Input() customer!: any; // Accepts the customer data as input
 }
+

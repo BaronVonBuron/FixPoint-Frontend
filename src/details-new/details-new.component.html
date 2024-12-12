@@ -14,6 +14,7 @@
     <div id="Grid2">
       <label>Vælg tekniker:</label>
       <select id="Tekniker" [(ngModel)]="caseData.technicianFK">
+        <!-- Loop through and display all technicians -->
         <option *ngFor="let tech of technicians" [value]="tech.id">{{ tech.name }}</option>
       </select>
     </div>

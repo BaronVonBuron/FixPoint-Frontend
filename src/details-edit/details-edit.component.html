@@ -3,7 +3,7 @@
   <div class="GridDiv">
     <div id="Grid1">
       <label>Vælg udstyrstype:</label>
-      <select id="Udstyrstype" name="udstyrstype">
+      <select id="Udstyrstype" name="udstyrstype" [(ngModel)]="case.type">
         <option value="PC">PC</option>
         <option value="Mobil">Mobil</option>
         <option value="Ipad/tablet">Ipad/Tablet</option>
@@ -12,17 +12,17 @@
     </div>
 
     <div id="Grid2">
-      <label>Vælg tekniker:</label>
-      <select id="Tekniker" name="Tekniker">
-        <option value="Jens">Jens Petersen</option>
-        <option value="Jasmin">Jasmin Sørensen</option>
-        <option value="Mikkel">Mikkel Jensen</option>
+      <label for="Tekniker">Vælg tekniker:</label>
+      <select id="Tekniker" [(ngModel)]="case.technicianFK">
+        <option *ngFor="let technician of technicians" [value]="technician.id">
+          {{ technician.name }}
+        </option>
       </select>
     </div>
 
     <div id="Grid3">
       <label>Vælg prioritet:</label>
-      <select id="Prioritet" name="Prioritet">
+      <select id="Prioritet" name="Prioritet" [(ngModel)]="case.priority">
         <option value="Lav">Lav</option>
         <option value="Mellem">Mellem</option>
         <option value="Høj">Høj</option>
@@ -31,13 +31,13 @@
 
     <div id="Grid4">
       <label>Vælg forventet afleveringsdato</label>
-      <input type="date">
+      <input type="date" [(ngModel)]="case.expectedDoneDate">
     </div>
   </div>
 
   <label>Beskrivelse af opgaven:</label>
-  <textarea class="description"></textarea>
+  <textarea class="description" [(ngModel)]="case.description"></textarea>
 
   <label>Noter:</label>
-  <textarea class="notes"></textarea>
+  <textarea class="notes" [(ngModel)]="case.notes"></textarea>
 </div>
