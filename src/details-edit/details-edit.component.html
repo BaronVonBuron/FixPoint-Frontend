@@ -23,9 +23,9 @@
     <div id="Grid3">
       <label>Vælg prioritet:</label>
       <select id="Prioritet" name="Prioritet" [(ngModel)]="case.priority">
-        <option value="Lav">Lav</option>
-        <option value="Mellem">Mellem</option>
-        <option value="Høj">Høj</option>
+        <option *ngFor="let priority of [1, 2, 3]" [value]="priority">
+          {{ priorityNamerService.getPriorityName(priority) }}
+        </option>
       </select>
     </div>
 

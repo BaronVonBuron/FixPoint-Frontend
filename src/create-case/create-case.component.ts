@@ -1,26 +1,26 @@
 import { Component, ViewChild } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
-import { CustomerInfoComponent } from '../customer-info/customer-info.component'; // Import CustomerInfo component
-import { DetailsNewComponent } from '../details-new/details-new.component'; // Import DetailsNew component
+import { CustomerInfoComponent } from '../customer-info/customer-info.component';
+import { DetailsNewComponent } from '../details-new/details-new.component';
 import { v4 as uuidv4 } from 'uuid';
 import { CreateCustomerService } from '../Services/create-case/create.customer.service';
-import { CreateCaseService } from '../Services/create-case/create.case.service';
+import { CaseService } from '../Services/case.service'; // Use CaseService here
 import { Router } from '@angular/router';
-import {NgIf} from '@angular/common';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-create-case',
   imports: [
-    HeaderComponent, CustomerInfoComponent, DetailsNewComponent, NgIf
+    HeaderComponent, CustomerInfoComponent, DetailsNewComponent,
   ],
-  providers: [CreateCustomerService, CreateCaseService], // Ensure these services are provided
+  providers: [CreateCustomerService], // Ensure CreateCustomerService is provided
   templateUrl: './create-case.component.html',
   standalone: true,
   styleUrl: './create-case.component.css'
 })
 export class CreateCaseComponent {
-  @ViewChild('customerInfo') customerInfoComponent!: CustomerInfoComponent; // Access customer info component
-  @ViewChild('detailsNew') detailsNewComponent!: DetailsNewComponent; // Access details new component
+  @ViewChild('customerInfo') customerInfoComponent!: CustomerInfoComponent;
+  @ViewChild('detailsNew') detailsNewComponent!: DetailsNewComponent;
 
   customer = {
     id: uuidv4(),
@@ -38,16 +38,14 @@ export class CreateCaseComponent {
     description: '',
     status: 1,
     priority: 0,
-    createdDate: new Date().toISOString(),
+    createdDate: new Date(),
     expectedDoneDate: '',
     notes: ''
   };
 
-  errorMessage: string | null = null; // Store validation errors
-
   constructor(
     private createCustomerService: CreateCustomerService,
-    private createCaseService: CreateCaseService,
+    private caseService: CaseService, // Inject CaseService
     private router: Router
   ) {}
 
@@ -55,45 +53,45 @@ export class CreateCaseComponent {
     const customerIsValid = !!this.customer.name && !!this.customer.email && !!this.customer.phonenumber && !!this.customer.cprcvr;
     const caseDataIsValid = !!this.caseData.technicianFK && !!this.caseData.type && !!this.caseData.description;
 
-    // If the customer information is invalid
     if (!customerIsValid) {
       window.alert('Alle kundeoplysninger skal være udfyldte for at kunne fortsætte');
       return false;
     }
 
-    // If the case information is invalid
     if (!caseDataIsValid) {
       window.alert('Alle sags-felter skal være udfyldte for at kunne fortsætte');
       return false;
     }
 
-    return true; // Validation passed
+    return true;
   }
 
   onSubmit(): void {
     if (!this.validateInputs()) {
-      return; // If validation fails, stop submission
+      return;
     }
 
-    this.customer.id = uuidv4(); // Generate new ID for customer
-    this.caseData.id = uuidv4(); // Generate new ID for case
+    this.customer.id = uuidv4();
+    this.caseData.id = uuidv4();
 
-    // Create customer
+    // Create the customer first
     this.createCustomerService.createCustomer(this.customer).subscribe({
-      next: customerResponse => {
-        console.log('Customer creation response:', customerResponse);
-        // Use the customer's ID for the case
+      next: (customerResponse) => {
+        console.log('Customer created successfully:', customerResponse);
+
         this.caseData.customerFK = customerResponse.id;
 
-        // Now create the case
-        this.createCaseService.createCase(this.caseData).subscribe({
-          next: () => alert('Sag oprettet'),
+        // Create the case
+        this.caseService.addCase(this.caseData).subscribe({
+          next: () => {
+            alert('Sag oprettet');
+            this.router.navigate(['/technician-dashboard']);
+          },
           error: (err) => alert('Error creating case: ' + err.message)
         });
       },
       error: (err) => alert('Error creating customer: ' + err.message)
     });
-    this.router.navigate(['/technician-dashboard']);
   }
 
   onCancel(): void {
