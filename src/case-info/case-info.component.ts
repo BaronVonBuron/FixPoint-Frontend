@@ -7,6 +7,7 @@ import { TechnicianModel } from '../Models/technician-model';
 import { SelectedCustomerService } from '../Services/selected.customer.service';
 import { CustomerModel } from '../Models/customer-model';
 import { CaseModel } from '../Models/case-model';
+import {PriorityNamerService} from '../Services/tools/priority.namer.service';
 
 @Component({
   selector: 'app-case-info',
@@ -24,7 +25,8 @@ export class CaseInfoComponent {
   constructor(
     private selectedCaseService: SelectedCaseService,
     private selectedTechnicianService: SelectedTechnicianService,
-    private selectedCustomerService: SelectedCustomerService
+    private selectedCustomerService: SelectedCustomerService,
+    private priorityNamer: PriorityNamerService
   ) {}
 
   ngOnInit() {
@@ -37,11 +39,16 @@ export class CaseInfoComponent {
     });
   }
 
+  getPriorityName(priority: number | undefined): string {
+    if (priority === undefined) return 'Ukendt'; // Handle undefined priority case
+    return this.priorityNamer.getPriorityName(priority);
+  }
+
   // Method to handle form submission and ensure all required fields are filled
   onSubmit(caseForm: NgForm) {
     // Check if the form is valid
     if (caseForm.invalid) {
-      this.errorMessage = 'Please fill out all required fields before submitting.';
+      this.errorMessage = 'Please fill out all required field before submitting.';
       return;
     }
 

@@ -8,7 +8,7 @@
   <h3>Sagsoplysninger</h3>
   <p>Udstyrstype: {{selectedCase?.type}}</p>
   <p>Tekniker: {{selectedTechnician?.name}}</p>
-  <p>Prioritet: {{selectedCase?.priority}}</p>
+  <p>Prioritet: {{ getPriorityName(selectedCase?.priority) }}</p>
   <p>Oprettelsesdato: {{selectedCase?.createdDate}}</p>
   <p>Afleveringsdato: {{selectedCase?.expectedDoneDate}}</p>
   <p>Problembeskrivelse: {{selectedCase?.description}}</p>
