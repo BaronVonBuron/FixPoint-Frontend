@@ -10,6 +10,8 @@ import {HeaderComponent} from '../header/header.component';
 import {CustomerModel} from '../Models/customer-model';
 import {SelectedCustomerService} from '../Services/selected.customer.service';
 import {Router} from '@angular/router';
+import {CaseService} from '../Services/case.service';
+import {PriorityNamerService} from '../Services/tools/priority.namer.service';
 
 @Component({
   selector: 'app-edit-case',
@@ -25,46 +27,46 @@ import {Router} from '@angular/router';
 })
 export class EditCaseComponent implements OnInit {
   selectedCase: CaseModel | null = null; // The current case being edited
-  customer: any = null;                  // The customer object
-  technicians: TechnicianModel[] = [];   // List of all technicians
+  customer: any = null;
+  technicians: TechnicianModel[] = [];
+  priorityOptions: number[] = []; // Priority drop-down options (Lav, Mellem, Høj)
 
   constructor(
     private selectedCaseService: SelectedCaseService,
     private getTechniciansService: GetTechniciansService,
-    private selectedCustomerService: SelectedCustomerService, // For fetching customer
+    private selectedCustomerService: SelectedCustomerService,
+    private caseService: CaseService,
+    private priorityNamerService: PriorityNamerService,
     private router: Router
   ) {}
 
   ngOnInit() {
-    // Fetch the case data
+    this.priorityOptions = [1, 2, 3]; // Priority options as numbers
+
     this.selectedCase = this.selectedCaseService.getCase();
 
-    // If there's a selected case, fetch the associated customer and technicians
     if (this.selectedCase) {
-      // Fetch customer dynamically using customerFK
-      this.selectedCustomerService
-        .getCustomerByIdWithParam(this.selectedCase.customerFK)
-        .subscribe({
-          next: (customer: CustomerModel) => {
-            this.customer = customer;
-            console.log('Customer loaded:', customer);
-          },
-          error: (err) => {
-            console.error('Error fetching customer:', err.message);
-          },
-        });
+      // Ensure the case's expectedDoneDate is in ISO format
+      this.selectedCase.expectedDoneDate = this.formatDateAsIso(this.selectedCase.expectedDoneDate);
 
-      // Fetch technicians for the dropdown
+      // Fetch customer and technicians data
+      this.selectedCustomerService.getCustomerByIdWithParam(this.selectedCase.customerFK).subscribe({
+        next: (customer) => { this.customer = customer; },
+        error: (err) => { console.error('Error fetching customer:', err); },
+      });
+
       this.getTechniciansService.getTechnicians().subscribe({
-        next: (technicians) => {
-          this.technicians = technicians;
-          console.log('Technicians loaded:', technicians);
-        },
-        error: (err) => {
-          console.error('Error fetching technicians:', err.message);
-        },
+        next: (technicians) => { this.technicians = technicians; },
+        error: (err) => { console.error('Error fetching technicians:', err); },
       });
     }
+  }
+
+// Helper function to format a date as an ISO string (yyyy-MM-dd)
+  private formatDateAsIso(date: any): string | null {
+    if (!date) return null; // Handle null or empty dates
+    const parsedDate = new Date(date); // Parse into a Date object
+    return parsedDate.toISOString().slice(0, 10); // Extract yyyy-MM-dd
   }
 
   cancel() {
@@ -72,5 +74,54 @@ export class EditCaseComponent implements OnInit {
     if (confirmCancel) {
       this.router.navigate(['/technician-dashboard']); // Navigate to the dashboard
     }
+  }
+
+  Delete() {
+    if (!this.selectedCase) {
+      console.error("No case selected for deletion.");
+      return;
+    }
+
+    // Confirmation dialog
+    const confirmDelete = window.confirm("Er du sikker? Dette sletter sagen permanent");
+
+    if (confirmDelete) {
+      // Call deleteCase and handle response
+      this.caseService.deleteCase(this.selectedCase.id).subscribe({
+        next: (response) => {
+          alert(response.message); // Display the success message from the server
+          this.router.navigate(['/technician-dashboard']); // Redirect to dashboard
+        },
+        error: (err) => {
+          console.error('Error while deleting the case:', err);
+          alert('Der opstod en fejl under sletning af sagen.');
+        },
+      });
+    }
+  }
+
+  Save() {
+    if (!this.selectedCase) {
+      console.error("No case selected for saving.");
+      return;
+    }
+
+    if (this.selectedCase.priority == null || this.selectedCase.priority <= 0 || this.selectedCase.priority >= 4) {
+      console.error("Invalid priority:", this.selectedCase.priority);
+      alert("Der er en fejl i prioriteten. Tjek den og prøv igen."); // Error message
+      return;
+    }
+
+    // Additional logic for saving the case
+    this.caseService.updateCase(this.selectedCase).subscribe({
+      next: (response) => {
+        alert(response); // Notify user of success
+        this.router.navigate(['/technician-dashboard']); // Redirect to dashboard
+      },
+      error: (err) => {
+        console.error("Error while saving the case:", err);
+        alert("Der opstod en fejl under gemning af sagen.");
+      },
+    });
   }
 }

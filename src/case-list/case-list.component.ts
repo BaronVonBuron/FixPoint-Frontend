@@ -3,62 +3,48 @@ import { CaseComponent } from '../case/case.component';
 import { CaseModel } from '../Models/case-model';
 import { CaseService } from '../Services/case.service';
 import { NgForOf } from '@angular/common';
-import { parseJwt } from '../TokenParsing/jwtParser'; // Assuming you have a JWT parser
+import {parseJwt} from '../TokenParsing/jwtParser';
 
 @Component({
   selector: 'app-case-list',
   imports: [CaseComponent, NgForOf],
   templateUrl: './case-list.component.html',
   standalone: true,
-  styleUrl: './case-list.component.css'
+  styleUrl: './case-list.component.css',
 })
 export class CaseListComponent {
-  cases: CaseModel[] = []; // Array to store the fetched cases
+  cases: CaseModel[] = []; // Array to hold the cases
 
   constructor(private caseService: CaseService) {}
 
   ngOnInit() {
-    const token = localStorage.getItem('jwtToken'); // Retrieve token from localStorage
-    if (token) {
-      const decodedToken = parseJwt(token); // Decode the JWT payload
-      const role = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']; // JWT role claim
-
-      if (role === 'Customer') {
-        const customerId = decodedToken['sub']; // Adjust key based on token structure
-        this.loadCasesByCustomer(customerId); // Fetch cases filtered by customer ID
-      } else if (role === 'Technician') {
-        this.loadAllCases(); // Fetch all cases
-      } else {
-        console.error('Unknown user role. Unable to load cases.');
-      }
-    } else {
-      console.error('No JWT token found. Unable to load cases.');
+    const token = localStorage.getItem('jwtToken'); // Retrieve the JWT from storage
+    if (!token) {
+      console.error('User is not authenticated. JWT token is missing.');
+      return;
     }
-  }
 
-  // Load cases for customers
-  private loadCasesByCustomer(customerId: string) {
-    this.caseService.getCasesByCustomer(customerId).subscribe({
-      next: (data: CaseModel[]) => {
-        console.log('Filtered cases for customer:', data);
-        this.cases = data;
-      },
-      error: (err) => {
-        console.error('Error fetching customer cases:', err.message);
-      }
-    });
-  }
+    const parsedToken = parseJwt(token); // Decode the JWT
+    const userRole = parsedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']; // Role from JWT
+    const customerId = parsedToken['sub']; // Use 'sub' for customer ID
 
-  // Load all cases for technicians
-  private loadAllCases() {
-    this.caseService.getCases().subscribe({
-      next: (data: CaseModel[]) => {
-        console.log('All cases:', data);
-        this.cases = data;
-      },
-      error: (err) => {
-        console.error('Error fetching all cases:', err.message);
+    // Determine which cases to load based on the user's role
+    if (userRole === 'Customer') {
+      // If the role is 'Customer', fetch cases by the customer's ID
+      if (customerId) {
+        this.caseService.getCasesByCustomer(customerId).subscribe((cases) => {
+          this.cases = cases; // Only show the customer's cases
+        });
+      } else {
+        console.error('No customer ID ("sub") found in JWT for user with the role "Customer".');
       }
-    });
+    } else if (userRole === 'Technician') {
+      // If the role is 'Technician', fetch ALL cases
+      this.caseService.getCases().subscribe((cases) => {
+        this.cases = cases; // Load all cases for technicians
+      });
+    } else {
+      console.error('Unknown user role detected in JWT:', userRole);
+    }
   }
 }

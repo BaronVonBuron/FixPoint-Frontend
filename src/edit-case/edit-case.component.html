@@ -5,8 +5,8 @@
     <app-customer-info *ngIf="customer" id="grid2" [customer]="customer"></app-customer-info>
     <app-details-edit *ngIf="selectedCase" id="grid3" [case]="selectedCase" [technicians]="technicians"></app-details-edit>
     <div id="grid4">
-      <button id="twogrid1">Gem</button>
-      <button id="twogrid2">Slet</button>
+      <button id="twogrid1" (click)="Save()">Gem</button>
+      <button id="twogrid2" (click)="Delete()">Slet</button>
       <button id="twogrid3" (click)="cancel()">Annuller</button>
     </div>
   </div>
