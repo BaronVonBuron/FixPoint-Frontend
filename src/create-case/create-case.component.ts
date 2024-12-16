@@ -53,16 +53,29 @@ export class CreateCaseComponent {
     const customerIsValid = !!this.customer.name && !!this.customer.email && !!this.customer.phonenumber && !!this.customer.cprcvr;
     const caseDataIsValid = !!this.caseData.technicianFK && !!this.caseData.type && !!this.caseData.description;
 
+    // Check if customer info is valid
     if (!customerIsValid) {
       window.alert('Alle kundeoplysninger skal være udfyldte for at kunne fortsætte');
       return false;
     }
 
+    // Check if case data is valid (including expectedDoneDate)
     if (!caseDataIsValid) {
       window.alert('Alle sags-felter skal være udfyldte for at kunne fortsætte');
       return false;
     }
 
+    // Validate that expectedDoneDate is set
+    if (!this.caseData.expectedDoneDate) {
+      window.alert('Afleveringsdato skal være udfyldt for at kunne oprette en sag');
+      return false;
+    }
+
+    //validate that priority is set
+    if (!this.caseData.priority) {
+      window.alert('Prioritet skal være udfyldt for at kunne oprette en sag');
+      return false;
+    }
     return true;
   }
 
@@ -73,6 +86,8 @@ export class CreateCaseComponent {
 
     this.customer.id = uuidv4();
     this.caseData.id = uuidv4();
+
+    this.customer.cprcvr = this.customer.cprcvr.replace(/-/g, '');
 
     // Create the customer first
     this.createCustomerService.createCustomer(this.customer).subscribe({

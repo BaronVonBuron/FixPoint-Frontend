@@ -23,6 +23,7 @@ export class CustomerLoginComponent {
   constructor(private apiService: ApiService, private router: Router) {}
 
   solve(): void {
+    this.password = this.password.replace(/-/g, '');
     this.apiService.login('login', { username: this.username, password: this.password }).subscribe({
       next: (response: { token: any }) => {
         const token = response.token;
