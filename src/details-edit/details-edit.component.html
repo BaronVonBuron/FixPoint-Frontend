@@ -29,6 +29,14 @@
       </select>
     </div>
 
+    <div id="Grid5">
+      <label>Ændre status:</label>
+      <select id="Status" name="Status" [(ngModel)]="case.status">
+        <option value="1">Oprettet</option>
+      </select>
+    </div>
+
+
     <div id="Grid4">
       <label>Vælg forventet afleveringsdato</label>
       <input type="date" [(ngModel)]="case.expectedDoneDate">
