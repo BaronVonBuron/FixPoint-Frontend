@@ -1,7 +1,3 @@
 <div>
-  <app-message></app-message>
-  <app-message></app-message>
-  <app-message></app-message>
-  <app-message></app-message>
-  <app-message></app-message>
+  <app-message *ngFor="let message of messages" [message]="message"></app-message>
 </div>
