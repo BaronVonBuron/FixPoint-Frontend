@@ -1,4 +1,4 @@
 <div>
   <app-message-list></app-message-list>
-  <app-send-message></app-send-message>
+  <app-send-message (messageSent)="refreshMessageList()"></app-send-message>
 </div>

@@ -1,5 +1,9 @@
-div{
-  width:80%;
+div {
+  width: 80%;
   margin: 1px;
-
+  word-wrap: break-word; /* Prevents text from overflowing */
+  overflow-wrap: break-word; /* Ensures long words break to the next line */
+  word-break: break-word; /* Break long words to fit within the container */
+  white-space: pre-wrap; /* Preserve spacing, but allow wrapping */
+  overflow: hidden; /* Prevents content from overflowing the container */
 }

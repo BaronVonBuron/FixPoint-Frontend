@@ -4,5 +4,5 @@ export interface MessageModel {
   technicianFK: string | null; // Technician foreign key (can be null)
   customerFK: string | null; // Customer foreign key (can be null)
   text: string; // Message text
-  timestamp: Date; // Timestamp of the message
+  timeStamp: Date; // Correct property name matches the API response
 }

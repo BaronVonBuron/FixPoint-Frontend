@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import { MessageService } from '../Services/messages/message.service';
 import { FormsModule } from '@angular/forms';
 import { SelectedCaseService } from '../Services/selected.case.service';
@@ -14,6 +14,7 @@ import {parseJwt} from '../TokenParsing/jwtParser';
   standalone: true,
 })
 export class SendMessageComponent {
+  @Output() messageSent: EventEmitter<void> = new EventEmitter(); // Add an output event for parent communication
   messageText: string = ''; // Bound to input field
   selectedCase: CaseModel | null = null;
   userId: string = ''; // Extracted from JWT
@@ -32,25 +33,24 @@ export class SendMessageComponent {
   }
 
   sendMessage(): void {
-    // Fetch the selected case before sending the message
     this.selectedCase = this.selectedCaseService.getCase();
 
     if (!this.messageText.trim() || !this.selectedCase) {
-      // Prevent sending an empty message or when no case is selected
       return;
     }
 
     const newMessage = {
-      id: crypto.randomUUID(), // Generate a new UUID for this message
+      id: crypto.randomUUID(),
       text: this.messageText,
-      caseFK: this.selectedCase.id, // The ID of the case being replied to
-      technicianFK: this.userRole === 'Technician' ? this.userId : null, // Populate based on user-role
-      customerFK: this.userRole === 'Customer' ? this.userId : null,     // Populate based on user-role
-      timestamp: new Date(), // Current timestamp
+      caseFK: this.selectedCase.id,
+      technicianFK: this.userRole === 'Technician' ? this.userId : null,
+      customerFK: this.userRole === 'Customer' ? this.userId : null,
+      timeStamp: new Date(),
     };
 
     this.messageService.createMessage(newMessage).subscribe(() => {
-      this.messageText = ''; // Clear the input field after the message is sent successfully
+      this.messageText = '';
+      this.messageSent.emit(); // Notify the parent component that a message was successfully sent
     });
   }
 }
