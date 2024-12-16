@@ -6,11 +6,13 @@ import {SelectedCaseService} from '../Services/selected.case.service';
 import {StatusPercentService} from '../Services/tools/status.percent.service';
 import {SelectedCustomerService} from '../Services/selected.customer.service';
 import {PriorityNamerService} from '../Services/tools/priority.namer.service';
+import {DatePipe} from '@angular/common';
 
 
 @Component({
   selector: 'app-case',
   imports: [
+    DatePipe
 
   ],
   templateUrl: './case.component.html',

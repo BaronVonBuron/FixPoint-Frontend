@@ -8,10 +8,13 @@ import { SelectedCustomerService } from '../Services/selected.customer.service';
 import { CustomerModel } from '../Models/customer-model';
 import { CaseModel } from '../Models/case-model';
 import {PriorityNamerService} from '../Services/tools/priority.namer.service';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-case-info',
-  imports: [],
+  imports: [
+    DatePipe
+  ],
   templateUrl: './case-info.component.html',
   standalone: true,
   styleUrl: './case-info.component.css'

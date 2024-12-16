@@ -9,7 +9,7 @@
   <p>Udstyrstype: {{selectedCase?.type}}</p>
   <p>Tekniker: {{selectedTechnician?.name}}</p>
   <p>Prioritet: {{ getPriorityName(selectedCase?.priority) }}</p>
-  <p>Oprettelsesdato: {{selectedCase?.createdDate}}</p>
-  <p>Afleveringsdato: {{selectedCase?.expectedDoneDate}}</p>
+  <p>Oprettelsesdato: {{ selectedCase?.createdDate | date: 'dd-MM-yyyy - HH:mm' }}</p>
+  <p>Afleveringsdato: {{ selectedCase?.expectedDoneDate | date: 'dd-MM-yyyy' }}</p>
   <p>Problembeskrivelse: {{selectedCase?.description}}</p>
 </div>

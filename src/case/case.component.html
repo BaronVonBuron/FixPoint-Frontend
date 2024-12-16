@@ -10,7 +10,7 @@
     <p> {{customerPhone}}</p>
   </div>
   <div class="caseItem" id="date">
-    <p>{{caseData.createdDate}}</p>
+    <p>{{ caseData.createdDate | date: 'dd-MM-yyyy' }}</p>
   </div>
   <div class="caseItem" id="priority">
     <p>{{priority}}</p>
