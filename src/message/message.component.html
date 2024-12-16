@@ -1,3 +1,4 @@
 <div>
-  <p>Hej, hvornår er min computer færdig? Jeg skulle gerne bruge den i morgen kl. 10:47</p>
+  <p>{{ message.text }}</p>
+  <small>{{ message.timestamp | date: 'short' }}</small>
 </div>
