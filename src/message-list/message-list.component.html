@@ -1,3 +1,7 @@
-<div>
-  <app-message *ngFor="let message of messages" [message]="message"></app-message>
+<div #scrollContainer>
+  <app-message
+    *ngFor="let message of messages"
+    [ngClass]="{'technician-message': message.technicianFK, 'customer-message': message.customerFK}"
+    [message]="message">
+  </app-message>
 </div>

@@ -10,6 +10,7 @@ import {DatePipe} from '@angular/common';
   ],
   templateUrl: './message.component.html',
   standalone: true,
+  styleUrl: './message.component.css'
 })
 export class MessageComponent {
   @Input() message!: MessageModel; // Accept the message as input

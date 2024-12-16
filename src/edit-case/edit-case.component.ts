@@ -12,6 +12,7 @@ import {SelectedCustomerService} from '../Services/selected.customer.service';
 import {Router} from '@angular/router';
 import {CaseService} from '../Services/case.service';
 import {PriorityNamerService} from '../Services/tools/priority.namer.service';
+import {CreateCustomerService} from '../Services/create-case/create.customer.service';
 
 @Component({
   selector: 'app-edit-case',
@@ -37,7 +38,8 @@ export class EditCaseComponent implements OnInit {
     private selectedCustomerService: SelectedCustomerService,
     private caseService: CaseService,
     private priorityNamerService: PriorityNamerService,
-    private router: Router
+    private router: Router,
+    private createCustomerService: CreateCustomerService
   ) {}
 
   ngOnInit() {
@@ -112,15 +114,26 @@ export class EditCaseComponent implements OnInit {
       return;
     }
 
-    // Additional logic for saving the case
-    this.caseService.updateCase(this.selectedCase).subscribe({
+    // First, save the customer info
+    this.createCustomerService.updateCustomer(this.customer).subscribe({
       next: (response) => {
-        alert(response); // Notify user of success
-        this.router.navigate(['/technician-dashboard']); // Redirect to dashboard
+        console.log('Customer updated successfully:', response);
+
+        // Then, save the case
+        this.caseService.updateCase(this.selectedCase!).subscribe({ // Non-null assertion here
+          next: (response) => {
+            alert(response); // Notify user of success
+            this.router.navigate(['/technician-dashboard']); // Redirect to dashboard
+          },
+          error: (err) => {
+            console.error("Error while saving the case:", err);
+            alert("Der opstod en fejl under gemning af sagen.");
+          },
+        });
       },
       error: (err) => {
-        console.error("Error while saving the case:", err);
-        alert("Der opstod en fejl under gemning af sagen.");
+        console.error('Error while updating customer:', err);
+        alert('Der opstod en fejl under ajourføring af kundeinformationerne.');
       },
     });
   }

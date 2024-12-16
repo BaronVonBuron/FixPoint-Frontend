@@ -18,8 +18,8 @@ export class MessageService {
     });
   }
 
-  // Send a new message
-  createMessage(message: MessageModel): Observable<MessageModel> {
-    return this.http.post<MessageModel>(this.baseUrl, message);
+// Send a new message
+  createMessage(message: MessageModel): Observable<{ Message: string; MessageId: string }> {
+    return this.http.post<{ Message: string; MessageId: string }>(this.baseUrl, message);
   }
 }

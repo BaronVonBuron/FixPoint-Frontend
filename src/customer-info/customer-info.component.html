@@ -1,11 +1,22 @@
 <div>
-  <h3>Kundeoplysninger:</h3>
-  <label>Navn:</label>
-  <input type="text" placeholder="Navn" [(ngModel)]="customer.name">
-  <label>Email:</label>
-  <input type="text" placeholder="E-mail" [(ngModel)]="customer.email">
-  <label>Telefon nr:</label>
-  <input type="text" placeholder="Tlf. nr." [(ngModel)]="customer.phonenumber">
-  <label>CPR/CVR:</label>
-  <input type="text" placeholder="CPR/CVR" [(ngModel)]="customer.cprcvr">
+  <h3>Kundeoplysninger</h3>
+  <label>
+    Navn:
+    <input [(ngModel)]="customer.name" type="text" />
+  </label>
+  <br />
+  <label>
+    Email:
+    <input [(ngModel)]="customer.email" type="email" />
+  </label>
+  <br />
+  <label>
+    Telefon:
+    <input [(ngModel)]="customer.phonenumber" type="text" />
+  </label>
+  <br />
+  <label>
+    CPR/CVR:
+    <input [(ngModel)]="customer.cprcvr" type="text" />
+  </label>
 </div>
