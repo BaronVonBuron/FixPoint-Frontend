@@ -2,8 +2,8 @@
   <app-header></app-header>
   <div class="main">
     <h1 id="grid1">Sager</h1>
-    <app-filter id="grid2"></app-filter>
-    <app-search id="grid3"></app-search>
+    <app-filter id="grid2" (filterChange)="onFilterChange($event)"></app-filter>
+    <app-search id="grid3" (searchEvent)="onSearch($event)"></app-search>
     <app-create-new-case id="grid4"></app-create-new-case>
     <div id="grid5" class="headings">
       <div class="caseItem" id="caseNumber">
@@ -25,6 +25,10 @@
         <p>Status</p>
       </div>
     </div>
-    <app-case-list id="grid6"></app-case-list>
+    <app-case-list
+      id="grid6"
+      [filter]="selectedFilter"
+      [searchQuery]="searchQuery">
+    </app-case-list>
   </div>
 </div>

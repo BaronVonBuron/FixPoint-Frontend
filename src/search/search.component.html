@@ -1,6 +1,6 @@
 <div class="main">
-  <input placeholder="Søg">
-  <button>
+  <input placeholder="Søg" [(ngModel)]="searchQuery"> <!-- Two-way binding -->
+  <button (click)="onSearch()"> <!-- Trigger search on button click -->
     <img class="Icon" src="https://img.icons8.com/pastel_glyph/512/FFFFFF/search--v2.png">
   </button>
 </div>

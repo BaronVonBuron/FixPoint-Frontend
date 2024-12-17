@@ -1,8 +1,10 @@
 <div>
-  <input type="radio" id="Alle" name="fav_language" value="Alle sager" checked="checked">
+  <input type="radio" id="Alle" name="fav_language" value="Alle sager" checked (change)="onFilterChange('Alle sager')">
   <label for="Alle">Alle sager</label><br>
-  <input type="radio" id="Mine" name="fav_language" value="Mine sager">
+
+  <input type="radio" id="Mine" name="fav_language" value="Mine sager" (change)="onFilterChange('Mine sager')">
   <label for="Mine">Mine sager</label><br>
-  <input type="radio" id="Afsluttede" name="fav_language" value="Afsluttede sager">
+
+  <input type="radio" id="Afsluttede" name="fav_language" value="Afsluttede sager" (change)="onFilterChange('Afsluttede sager')">
   <label for="Afsluttede">Afsluttede sager</label>
 </div>

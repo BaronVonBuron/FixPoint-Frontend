@@ -16,5 +16,16 @@ import {CreateNewCaseComponent} from '../../../create-new-case/create-new-case.c
   styleUrl: './technician-dashboard.component.css'
 })
 export class TechnicianDashboardComponent {
+  selectedFilter: string = 'Alle sager'; // Current filter
+  searchQuery: string = ''; // Current search query
 
+  // Handle filter selection change
+  onFilterChange(filter: string) {
+    this.selectedFilter = filter;
+  }
+
+  // Handle search query change
+  onSearch(query: string) {
+    this.searchQuery = query; // Update the search query
+  }
 }
