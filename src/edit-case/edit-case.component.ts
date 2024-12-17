@@ -13,6 +13,8 @@ import {Router} from '@angular/router';
 import {CaseService} from '../Services/case.service';
 import {PriorityNamerService} from '../Services/tools/priority.namer.service';
 import {CreateCustomerService} from '../Services/create-case/create.customer.service';
+import {MessageModel} from '../Models/message-model';
+import {MessageService} from '../Services/messages/message.service';
 
 @Component({
   selector: 'app-edit-case',
@@ -39,7 +41,8 @@ export class EditCaseComponent implements OnInit {
     private caseService: CaseService,
     private priorityNamerService: PriorityNamerService,
     private router: Router,
-    private createCustomerService: CreateCustomerService
+    private createCustomerService: CreateCustomerService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -123,6 +126,7 @@ export class EditCaseComponent implements OnInit {
         this.caseService.updateCase(this.selectedCase!).subscribe({ // Non-null assertion here
           next: (response) => {
             alert(response); // Notify user of success
+            this.sendStatusChangeMessage();
             this.router.navigate(['/technician-dashboard']); // Redirect to dashboard
           },
           error: (err) => {
@@ -135,6 +139,54 @@ export class EditCaseComponent implements OnInit {
         console.error('Error while updating customer:', err);
         alert('Der opstod en fejl under ajourføring af kundeinformationerne.');
       },
+    });
+  }
+
+  sendStatusChangeMessage(): void {
+    if (!this.selectedCase) {
+      console.error('Cannot send a message as no case is selected.');
+      return;
+    }
+
+    let messageText = '';
+
+    const caseStatus = Number(this.selectedCase.status);
+
+    if (isNaN(caseStatus)) {
+      console.error('Error: Invalid status value', this.selectedCase.status);
+      return; // Exit the method to avoid further issues
+    }
+
+    switch (caseStatus) {
+      case 1:
+        messageText = 'Status: Sagen er modtaget';
+        break;
+      case 2:
+        messageText = 'Status: Sagen er nu under reparation';
+        break;
+      case 3:
+        messageText = 'Status: Sagen afventer reservedele';
+        break;
+      case 4:
+        messageText = 'Status: Sagen er repareret og klar til afhentning';
+        break;
+      default:
+        console.error('Error: Unknown status:', caseStatus);
+        return; // Exit if the status is not valid
+    }
+
+    const message: MessageModel = {
+      id: crypto.randomUUID(),
+      caseFK: this.selectedCase.id,
+      technicianFK: this.selectedCase.technicianFK,
+      customerFK: null,
+      text: messageText,
+      timeStamp: new Date(),
+    };
+
+    this.messageService.createMessage(message).subscribe({
+      next: () => console.log('Status change message sent successfully.'),
+      error: (err) => console.error('Failed to send status change message:', err),
     });
   }
 }
