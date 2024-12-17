@@ -7,6 +7,9 @@ import { CreateCustomerService } from '../Services/create-case/create.customer.s
 import { CaseService } from '../Services/case.service'; // Use CaseService here
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
+import {CaseModel} from '../Models/case-model';
+import {MessageModel} from '../Models/message-model';
+import {MessageService} from '../Services/messages/message.service';
 
 @Component({
   selector: 'app-create-case',
@@ -46,7 +49,8 @@ export class CreateCaseComponent {
   constructor(
     private createCustomerService: CreateCustomerService,
     private caseService: CaseService, // Inject CaseService
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {}
 
   validateInputs(): boolean {
@@ -100,6 +104,7 @@ export class CreateCaseComponent {
         this.caseService.addCase(this.caseData).subscribe({
           next: () => {
             alert('Sag oprettet');
+            this.addInitialMessage(this.caseData);
             this.router.navigate(['/technician-dashboard']);
           },
           error: (err) => alert('Error creating case: ' + err.message)
@@ -107,6 +112,7 @@ export class CreateCaseComponent {
       },
       error: (err) => alert('Error creating customer: ' + err.message)
     });
+
   }
 
   onCancel(): void {
@@ -114,5 +120,19 @@ export class CreateCaseComponent {
     if (confirmCancel) {
       this.router.navigate(['/technician-dashboard']); // Navigate to the dashboard
     }
+  }
+
+  addInitialMessage(casee: CaseModel): void {
+    const techOnCase = this.detailsNewComponent.technicians.find(tech => tech.id === casee.technicianFK);
+    const message: MessageModel = {
+      id: crypto.randomUUID(),
+      caseFK: casee.id,
+      technicianFK: casee.technicianFK,
+      customerFK: null,
+      text: 'Din sag er oprettet, og din tekniker er: '+ techOnCase?.name,
+      timeStamp: new Date(),
+        };
+    this.messageService.createMessage(message).subscribe({
+    });
   }
 }

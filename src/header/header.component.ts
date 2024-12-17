@@ -22,9 +22,6 @@ export class HeaderComponent {
   isDropdownVisible = false;
   notifications = ['Notification 1', 'Notification 2', 'Notification 3', 'Notification 4', 'Notification 5', 'Notification 6', 'Notification 7'];
 
-  toggleDropdown() {
-    this.isDropdownVisible = !this.isDropdownVisible;
-  }
 
   logout() {
     const confirmation = window.confirm('Vil du logge ud?');
