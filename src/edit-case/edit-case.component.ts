@@ -111,7 +111,7 @@ export class EditCaseComponent implements OnInit {
       return;
     }
 
-    if (this.selectedCase.description.length < 999 || this.selectedCase.notes.length < 1999) {
+    if (this.selectedCase.description.length > 999 || this.selectedCase.notes.length > 1999) {
       alert("Beskrivelsen må maksimalt være 1000 tegn og noterne 2000 tegn.");
       return;
     }
@@ -130,7 +130,7 @@ export class EditCaseComponent implements OnInit {
         // Then, save the case
         this.caseService.updateCase(this.selectedCase!).subscribe({ // Non-null assertion here
           next: (response) => {
-            alert(response); // Notify user of success
+            alert('Sagen er opdateret'); // Notify user of success
             this.sendStatusChangeMessage();
             this.router.navigate(['/technician-dashboard']); // Redirect to dashboard
           },
