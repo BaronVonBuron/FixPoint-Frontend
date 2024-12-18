@@ -39,6 +39,11 @@ export class SendMessageComponent {
       return;
     }
 
+    if (this.messageText.length > 999) {
+      alert('Beskeden er for lang. Max 1000 tegn');
+      return;
+    }
+
     const newMessage = {
       id: crypto.randomUUID(),
       text: this.messageText,

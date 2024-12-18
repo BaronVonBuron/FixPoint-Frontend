@@ -42,7 +42,10 @@
 
     <div id="Grid4">
       <label>Vælg forventet afleveringsdato</label>
-      <input type="date" [(ngModel)]="case.expectedDoneDate">
+      <input
+        type="date"
+        [(ngModel)]="case.expectedDoneDate"
+        [min]="minDate"/>
     </div>
   </div>
 

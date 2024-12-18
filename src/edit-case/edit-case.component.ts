@@ -111,6 +111,11 @@ export class EditCaseComponent implements OnInit {
       return;
     }
 
+    if (this.selectedCase.description.length < 999 || this.selectedCase.notes.length < 1999) {
+      alert("Beskrivelsen må maksimalt være 1000 tegn og noterne 2000 tegn.");
+      return;
+    }
+
     if (this.selectedCase.priority == null || this.selectedCase.priority <= 0 || this.selectedCase.priority >= 4) {
       console.error("Invalid priority:", this.selectedCase.priority);
       alert("Der er en fejl i prioriteten. Tjek den og prøv igen."); // Error message

@@ -15,6 +15,13 @@ import {PriorityNamerService} from '../Services/tools/priority.namer.service';
 export class DetailsEditComponent {
   @Input() case!: CaseModel; // Case object passed as input
   @Input() technicians: TechnicianModel[] = []; // List of technicians for select dropdown
+  public minDate!: string; // The minimum selectable date, dynamically calculated
 
   constructor(public priorityNamerService: PriorityNamerService) { }
+
+  ngOnInit(): void {
+    // Get today's date in the format YYYY-MM-DD
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0];
+  }
 }

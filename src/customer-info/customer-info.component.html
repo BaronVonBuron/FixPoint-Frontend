@@ -1,22 +1,65 @@
 <div>
   <h3>Kundeoplysninger</h3>
-  <label>
-    Navn:
-    <input [(ngModel)]="customer.name" type="text" />
-  </label>
-  <br />
-  <label>
-    Email:
-    <input [(ngModel)]="customer.email" type="email" />
-  </label>
-  <br />
-  <label>
-    Telefon:
-    <input [(ngModel)]="customer.phonenumber" type="text" />
-  </label>
-  <br />
-  <label>
-    CPR/CVR:
-    <input [(ngModel)]="customer.cprcvr" type="text" />
-  </label>
+  <form #customerForm="ngForm" novalidate>
+    <!-- Name -->
+    <label>
+      Navn:
+      <input
+        [(ngModel)]="customer.name"
+        type="text"
+        name="name"
+        required
+        minlength="2"
+        maxlength="200"
+        #name="ngModel"
+      />
+    </label>
+    <br />
+
+    <!-- Email -->
+    <label>
+      Email:
+      <input
+        [(ngModel)]="customer.email"
+        type="email"
+        name="email"
+        required
+        minlength="5"
+        maxlength="200"
+        #email="ngModel"
+      />
+    </label>
+    <br />
+
+    <!-- Phone Number -->
+    <label>
+      Telefon:
+      <input
+        [(ngModel)]="customer.phonenumber"
+        type="text"
+        name="phonenumber"
+        required
+        minlength="8"
+        maxlength="15"
+        pattern="^[0-9]+$"
+        #phonenumber="ngModel"
+      />
+    </label>
+    <br />
+
+    <!-- CPR/CVR -->
+    <label>
+      CPR/CVR:
+      <input
+        [(ngModel)]="customer.cprcvr"
+        type="text"
+        name="cprcvr"
+        required
+        minlength="8"
+        maxlength="20"
+        pattern="^[0-9-]+$"
+        #cprcvr="ngModel"
+      />
+    </label>
+  </form>
 </div>

@@ -1,3 +1,4 @@
+/* Base Input Styles */
 input {
   width: 90%;
   margin-bottom: 50px;
@@ -8,14 +9,17 @@ input {
   font-size: 20px;
   font-style: italic;
   margin-top: 10px;
+  transition: all 0.3s ease-in-out; /* Smooth color transition */
 }
 
-h3{
+/* Header Styles */
+h3 {
   font-size: 25px;
   margin-bottom: 50px;
 }
 
-div{
+/* Container Styles */
+div {
   width: 550px;
   height: 800px;
   background-color: white;
@@ -24,4 +28,16 @@ div{
   margin-left: 50px;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Dynamic Invalid State Styling (Red) */
+input.ng-invalid.ng-touched {
+  border: 2px solid red;
+  background-color: #ffdddd;
+}
+
+/* Dynamic Valid State Styling (Green) */
+input.ng-valid.ng-touched {
+  border: 2px solid green;
+  background-color: #ddffdd;
 }

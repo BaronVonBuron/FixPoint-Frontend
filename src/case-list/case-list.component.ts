@@ -81,9 +81,30 @@ export class CaseListComponent implements OnChanges {
         caseItem.id.toLowerCase().includes(query) || // Match by ID
         caseItem.type.toLowerCase().includes(query) || // Match by type
         caseItem.description.toLowerCase().includes(query) // Match by description
-
       );
     }
+
+    // Step 3: Sort cases
+    // For active cases (status 3 or lower): Priority asc, then createdDate asc
+    // For completed cases (status = 4): Push to the bottom, createdDate desc
+    filteredCases = filteredCases.sort((a, b) => {
+      // If one case is completed (status 4) and the other is not, prioritize the non-completed case
+      if (a.status === 4 && b.status !== 4) return 1;
+      if (b.status === 4 && a.status !== 4) return -1;
+
+      // For completed cases (both statuses are 4): Sort by createdDate desc
+      if (a.status === 4 && b.status === 4) {
+        return new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime(); // Newer first
+      }
+
+      // For active cases (status 3 or lower): Sort by priority asc, then createdDate asc
+      if (a.priority !== b.priority) {
+        return a.priority - b.priority; // Higher priority first (lower number)
+      }
+
+      // If priorities are the same, sort by createdDate asc (older first)
+      return new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime();
+    });
 
     // Update the displayed cases
     this.cases = filteredCases;
